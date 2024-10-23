@@ -15,9 +15,9 @@ headers = {
 }
 url = 'https://www.labirint.ru/books/'
 
-yyy = requests.get(url, headers = headers)
+page = requests.get(url, headers = headers)
 data = [['Автор-Название','Жанр', 'Цена', 'Ссылка']]
-soap = BeautifulSoup(yyy.content, 'html.parser')
+soap = BeautifulSoup(page.content, 'html.parser')
 for i in soap.find_all('div', class_='pagination-number'):
     for elem in soap.find_all('div',class_="genres-carousel__item" ):
         title = "\"" + elem.find('a').get('title').strip()+"\""
@@ -27,8 +27,8 @@ for i in soap.find_all('div', class_='pagination-number'):
         list = [title, author, price, url]
         data.append(list)
 
-ass = pandas.DataFrame(data)
-ass.to_excel('teams.xlsx')
+frame = pandas.DataFrame(data)
+frame.to_excel('teams.xlsx')
 print('success!')
 
 
@@ -40,7 +40,7 @@ print('success!')
 
 
 
-# тапки
+# Парсер магазина одежды
 # data = [['title', 'price','color', 'url', 'photo']]
 # url = "https://kith.com/collections/mens-footwear"
 # def get_soup(url):
